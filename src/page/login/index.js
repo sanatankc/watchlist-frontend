@@ -36,6 +36,7 @@ const CardHeadItem = styled.div`
   &:hover {
     background: ${themeColor};
     color: #fff;
+    opacity: ${props => props.isActive ? '1' : '0.8'};
   }
 `
 
