@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ApolloProvider } from "react-apollo"
 import ApolloClient from "apollo-boost"
 import './index.css'
@@ -13,10 +14,12 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <div>
-      <NavBar />
-      <Routes />
-    </div>
+    <BrowserRouter>
+      <div>
+        <NavBar />
+        <Routes />
+      </div>
+    </BrowserRouter>
   </ApolloProvider>
 , document.getElementById('root'))
 
