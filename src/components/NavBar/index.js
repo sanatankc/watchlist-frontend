@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../../logo.png'
+import { boxShadow } from '../../constants'
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   height: 55px;
   width: 100vw;
-  box-shadow: 5px 2px 15px 0 rgba(46,61,73,.1);
+  box-shadow: ${boxShadow};
   padding: 0 20px;
   box-sizing: border-box;
   justify-content: space-between;
