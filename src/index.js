@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
+import Routes from './Routes'
 import NavBar from './components/NavBar'
 import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <Fragment>
     <NavBar />
-    <App />
+    <Routes />
   </Fragment>
 , document.getElementById('root'))
 registerServiceWorker()
