@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import logo from '../../logo.png'
 import { boxShadow } from '../../constants'
+import isAuthenticated from '../../isAuthenticated'
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,13 +37,15 @@ const NavBar = props => {
     },
     '/login': {
       logoTranslateX: 'calc(50vw - 86px - 20px)'
+    },
+    '/add': {
+      logoTranslateX: '0px'
     }
   }
-  console.log(pathname)
   return (
     <Wrapper>
       <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
-      <ProfileMenu />
+      {isAuthenticated() && <ProfileMenu />}
     </Wrapper>
 )}
 

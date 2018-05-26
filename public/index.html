@@ -36,5 +36,21 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <filter id="bluish">
+        <feColorMatrix type="matrix" result="grayscale"
+          values="1 0 0 0 0
+                  1 0 0 0 0
+                  1 0 0 0 0
+                  0 0 0 1 0" >
+        </feColorMatrix>
+        <feComponentTransfer color-interpolation-filters="sRGB" result="duotone">
+          <feFuncR type="table" tableValues="0 1"></feFuncR>
+          <feFuncG type="table" tableValues="0.6509803922 1"></feFuncG>
+          <feFuncB type="table" tableValues="1 1"></feFuncB>
+          <feFuncA type="table" tableValues="0 1"></feFuncA>
+        </feComponentTransfer>
+      </filter>
+    </svg>
   </body>
 </html>
