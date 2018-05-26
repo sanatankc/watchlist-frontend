@@ -18,7 +18,7 @@ const SearchInput = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  color: #c0c0c0;
+  color: #333;
   font-size: 18px;
   letter-spacing: 2.2px;
   &::placeholder {

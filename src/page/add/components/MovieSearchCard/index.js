@@ -8,6 +8,7 @@ const Card = styled.div`
   width: 270px;
   border-radius: 4px;
   overflow: hidden;
+  margin-top: 40px;
 `
 const PostersWrapper = styled.div`
   position: relative;

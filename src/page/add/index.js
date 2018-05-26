@@ -15,7 +15,18 @@ const SearchWrapper = styled.div`
   justify-content: center;
   margin-top: 40px;
 `
-
+const MovieSearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`
+const MovieSearchWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+`
 export default class AddPage extends Component {
   constructor(props) {
     super(props)
@@ -42,7 +53,13 @@ export default class AddPage extends Component {
             value={this.state.searchText}
           />
         </SearchWrapper>
-        <MovieSearchCard />
+        <MovieSearchContainer>
+          <MovieSearchWrapper>
+            <MovieSearchCard />
+            <MovieSearchCard />
+            <MovieSearchCard />
+          </MovieSearchWrapper>
+        </MovieSearchContainer>
       </Main>
     )
   }
