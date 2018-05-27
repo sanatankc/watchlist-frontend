@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
 import placeHolder from './placeholder.png'
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
 
 
 const blink = keyframes`
@@ -132,6 +134,14 @@ const WatchListBtn = styled.button`
   }
 `
 
+const ADD_WATCHLIST = gql`
+  mutation addMovie($tmdbId: String!, $movieName: String!) {
+    addMovie(: $tmdbId, movieName: $movieName) {
+      tmdbId
+      movieName
+    }
+  }`
+
 class MovieSearchCard extends Component {
   state = {
     btnStatus: 'NORMAL',
@@ -169,9 +179,11 @@ class MovieSearchCard extends Component {
         <TitleWrapper>
           <Title>{this.props.movieName}</Title>
         </TitleWrapper>
-        <WatchListBtn btnStatus={this.state.btnStatus}>
-          {this.renderButtonContent()}
-        </WatchListBtn>
+        {/* <Mutation mutation={ADD_WATCHLIST}> */}
+          <WatchListBtn btnStatus={this.state.btnStatus}>
+            {this.renderButtonContent()}
+          </WatchListBtn>
+        {/* </Mutation> */}
       </Card>
     )
   }
