@@ -149,6 +149,7 @@ class MovieSearchCard extends Component {
         )
       case 'SUCCESS':
         return 'Added to Watchlist'
+      default: return ''
     }
   }
 
