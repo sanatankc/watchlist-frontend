@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
+import queryString from 'query-string'
 import SearchBar from '../../components/SearchBar'
 import MovieSearchCard from './components/MovieSearchCard'
 import searchTMDB from './utils/searchTMDB'
@@ -26,7 +28,7 @@ const MovieSearchWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
 `
-export default class AddPage extends Component {
+class AddPage extends Component {
   constructor(props) {
     super(props)
     this.onSearchChange = this.onSearchChange.bind(this)
@@ -39,6 +41,13 @@ export default class AddPage extends Component {
     resultsState: 'EMPTY'
   }
 
+  componentDidMount() {
+    const { search } =  queryString.parse(this.props.location.search)
+    if (search) {
+      this.setState({ searchText: search }, this.onMovieSearch)
+    }
+  }
+
   onSearchChange(e) {
     this.setState({ searchText: e.target.value })
   }
@@ -48,6 +57,11 @@ export default class AddPage extends Component {
     this.setState({
       searchResults,
       resultsState: 'SUCCESS'
+    } , () => {
+      this.props.history.push({
+        pathname: '/add',
+        search: `search=${this.state.searchText}`
+      })
     })
   }
 
@@ -82,3 +96,5 @@ export default class AddPage extends Component {
     )
   }
 }
+
+export default withRouter(AddPage)

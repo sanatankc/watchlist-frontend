@@ -35,7 +35,7 @@ const SearchBar = props => (
       type='text'
       placeholder={props.placeholder}
       onChange={props.onChange}
-      value={props.valued}
+      value={props.value}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           if (props.onEnter) {
