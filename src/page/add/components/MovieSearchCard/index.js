@@ -79,6 +79,7 @@ const Title = styled.div`
   font-size: 16px;
   letter-spacing: 2.2px;
   margin-top: 30px;
+  height: 18px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
