@@ -1,7 +1,20 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { Component, Fragment } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
 import placeHolder from './placeholder.png'
+
+
+const blink = keyframes`
+  0% {
+    opacity: .2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .2;
+  }
+`
 
 const Card = styled.div`
   background: white;
@@ -91,30 +104,76 @@ const WatchListBtn = styled.button`
   width: 100%;
   font-size: 16px;
   padding: 10px 0;
-  background: ${themeColor};
-  color: white;
+  background: ${props => {
+    if (props.btnStatus === 'NORMAL') return themeColor
+    if (props.btnStatus === 'LOADING') return '#2EC4B691'
+    if (props.btnStatus === 'SUCCESS') return '#2EC4B6'
+  }};
+  cursor: ${props => {
+    if (props.btnStatus === 'NORMAL') return 'pointer'
+    if (props.btnStatus === 'LOADING') return 'not-allowed'
+    if (props.btnStatus === 'SUCCESS') return 'pointer'
+  }};
   letter-spacing: 2.2px;
   margin-top: 20px;
-  cursor: pointer;
+  color: #fff;
+  transition: 0.3s all ease-in-out;
+  span {
+    animation-name: ${blink};
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
 `
 
-const MovieSearchCard = props => (
-  <Card>
-    <PostersWrapper>
-      <BackgroundPosterContainer>
-        <PlaceHolderImage filtered />
-        <BackgroundPoster image={props.image} />
-      </BackgroundPosterContainer>
-      <FrontPosterContainer>
-        <PlaceHolderImage />
-        <FrontPoster image={props.image} />
-      </FrontPosterContainer>
-    </PostersWrapper>
-    <TitleWrapper>
-      <Title>{props.movieName}</Title>
-    </TitleWrapper>
-    <WatchListBtn>+ Add to Watchlist</WatchListBtn>
-  </Card>
-)
+class MovieSearchCard extends Component {
+  state = {
+    btnStatus: 'NORMAL',
+  }
+
+  renderButtonContent() {
+    switch (this.state.btnStatus) {
+      case 'NORMAL':
+        return '+ Add to Watchlist'
+      case 'LOADING':
+        return (
+          <Fragment>
+            Adding to watchlist <span>.</span><span>.</span><span>.</span>
+          </Fragment>
+        )
+      case 'SUCCESS':
+        return 'Added to Watchlist'
+    }
+  }
+
+  render() {
+    return (
+      <Card>
+        <PostersWrapper>
+          <BackgroundPosterContainer>
+            <PlaceHolderImage filtered />
+            <BackgroundPoster image={this.props.image} />
+          </BackgroundPosterContainer>
+          <FrontPosterContainer>
+            <PlaceHolderImage />
+            <FrontPoster image={this.props.image} />
+          </FrontPosterContainer>
+        </PostersWrapper>
+        <TitleWrapper>
+          <Title>{this.props.movieName}</Title>
+        </TitleWrapper>
+        <WatchListBtn btnStatus={this.state.btnStatus}>
+          {this.renderButtonContent()}
+        </WatchListBtn>
+      </Card>
+    )
+  }
+}
 
 export default MovieSearchCard
