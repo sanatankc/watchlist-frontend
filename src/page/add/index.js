@@ -53,15 +53,15 @@ class AddPage extends Component {
   }
 
   async onMovieSearch(e) {
+    this.props.history.push({
+      pathname: '/add',
+      search: `search=${this.state.searchText}`
+    })
     const searchResults = await searchTMDB(this.state.searchText)
+
     this.setState({
       searchResults,
       resultsState: 'SUCCESS'
-    } , () => {
-      this.props.history.push({
-        pathname: '/add',
-        search: `search=${this.state.searchText}`
-      })
     })
   }
 
