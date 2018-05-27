@@ -23,7 +23,6 @@ const MovieSearchContainer = styled.div`
 `
 const MovieSearchWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
   width: 100%;
   max-width: 1200px;

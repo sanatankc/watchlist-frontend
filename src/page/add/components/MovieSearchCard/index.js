@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
+import placeHolder from './placeholder.png'
+
+console.log(placeHolder)
 
 const Card = styled.div`
   background: white;
@@ -9,6 +12,7 @@ const Card = styled.div`
   border-radius: 4px;
   overflow: hidden;
   margin-top: 40px;
+  margin-left: 30px;
 `
 const PostersWrapper = styled.div`
   position: relative;
@@ -21,7 +25,7 @@ const BackgroundPoster = styled.div`
   height: 225px;
   top: 0;
   left: 0;
-  background: url("${props => props.image}");
+  background: url("${props => props.image || placeHolder}");
   background-size: cover;
   filter: url(#bluish);
 `
@@ -33,7 +37,7 @@ const FrontPoster = styled.div`
   bottom: 0;
   right: 0;
   box-shadow: -5px 0px 25px 0 rgba(46, 61, 73, 0.4);
-  background: url("${props => props.image}");
+  background: url("${props => props.image || placeHolder}");
   background-size: cover;
 `
 const TitleWrapper = styled.div`
