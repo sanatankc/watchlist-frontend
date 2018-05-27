@@ -19,10 +19,18 @@ const PostersWrapper = styled.div`
   width: 100%;
   height: 250px;
 `
-const BackgroundPoster = styled.div`
+const BackgroundPosterContainer = styled.div`
   position: absolute;
   width: 150px;
   height: 225px;
+  top: 0;
+  left: 0;
+`
+const BackgroundPoster = styled.div`
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   background: url("${props => props.image || placeHolder}");
@@ -30,16 +38,37 @@ const BackgroundPoster = styled.div`
   filter: url(#bluish);
 `
 
-const FrontPoster = styled.div`
+const FrontPosterContainer = styled.div`
   position: absolute;
   width: 150px;
   height: 225px;
   bottom: 0;
   right: 0;
   box-shadow: -5px 0px 25px 0 rgba(46, 61, 73, 0.4);
+`
+const FrontPoster = styled.div`
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   background: url("${props => props.image || placeHolder}");
   background-size: cover;
 `
+
+const PlaceHolderImage = styled.div`
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url("${placeHolder}");
+  background-size: cover;
+  ${props => props.filter && 'filter: url(#bluish);'}
+`
+
 const TitleWrapper = styled.div`
   width: 100%;
   padding: 0 10px;
@@ -73,8 +102,14 @@ const WatchListBtn = styled.button`
 const MovieSearchCard = props => (
   <Card>
     <PostersWrapper>
-      <BackgroundPoster image={props.image} />
-      <FrontPoster image={props.image} />
+      <BackgroundPosterContainer>
+        <PlaceHolderImage filter />
+        <BackgroundPoster image={props.image} />
+      </BackgroundPosterContainer>
+      <FrontPosterContainer>
+        <PlaceHolderImage />
+        <FrontPoster image={props.image} />
+      </FrontPosterContainer>
     </PostersWrapper>
     <TitleWrapper>
       <Title>{props.movieName}</Title>
