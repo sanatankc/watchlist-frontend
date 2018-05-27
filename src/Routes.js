@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import Login from './page/login'
 import RootPage from './page/root'

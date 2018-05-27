@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Query, withApollo } from "react-apollo"
+import {  withApollo } from "react-apollo"
 import gql from "graphql-tag"
 import { Redirect } from 'react-router-dom'
 import {
@@ -82,7 +82,6 @@ class Login extends Component {
     e.preventDefault()
     if (this.state.username === '' || this.state.password === '') {
       this.shakeForm()
-      console.log('empty', this.state.username, this.state.password)
       return
     }
 

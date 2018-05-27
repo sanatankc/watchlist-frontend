@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import SearchBar from '../../components/SearchBar'
 import MovieSearchCard from './components/MovieSearchCard'
 import searchTMDB from './utils/searchTMDB'
-import { themeColor, boxShadow } from '../../constants'
 
 const Main = styled.div`
   width: 100%;
@@ -50,8 +49,6 @@ export default class AddPage extends Component {
       searchResults,
       resultsState: 'SUCCESS'
     })
-    console.log('loaded')
-    console.log(searchResults)
   }
 
   renderResultCards() {

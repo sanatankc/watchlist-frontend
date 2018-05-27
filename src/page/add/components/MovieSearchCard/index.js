@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
 import placeHolder from './placeholder.png'
 
-console.log(placeHolder)
-
 const Card = styled.div`
   background: white;
   box-shadow: ${boxShadow};
@@ -66,7 +64,7 @@ const PlaceHolderImage = styled.div`
   left: 0;
   background: url("${placeHolder}");
   background-size: cover;
-  ${props => props.filter && 'filter: url(#bluish);'}
+  ${props => props.filtered && 'filter: url(#bluish);'}
 `
 
 const TitleWrapper = styled.div`
@@ -104,7 +102,7 @@ const MovieSearchCard = props => (
   <Card>
     <PostersWrapper>
       <BackgroundPosterContainer>
-        <PlaceHolderImage filter />
+        <PlaceHolderImage filtered />
         <BackgroundPoster image={props.image} />
       </BackgroundPosterContainer>
       <FrontPosterContainer>
