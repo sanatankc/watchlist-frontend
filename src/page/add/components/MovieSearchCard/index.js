@@ -21,7 +21,7 @@ const BackgroundPoster = styled.div`
   height: 225px;
   top: 0;
   left: 0;
-  background: url("https://image.tmdb.org/t/p/w200/hYtmqHbCuemuA6ICUylWRfP7bR6.jpg");
+  background: url("${props => props.image}");
   background-size: cover;
   filter: url(#bluish);
 `
@@ -33,7 +33,7 @@ const FrontPoster = styled.div`
   bottom: 0;
   right: 0;
   box-shadow: -5px 0px 25px 0 rgba(46, 61, 73, 0.4);
-  background: url("https://image.tmdb.org/t/p/w200/hYtmqHbCuemuA6ICUylWRfP7bR6.jpg");
+  background: url("${props => props.image}");
   background-size: cover;
 `
 const TitleWrapper = styled.div`
@@ -66,14 +66,14 @@ const WatchListBtn = styled.button`
   cursor: pointer;
 `
 
-const MovieSearchCard = () => (
+const MovieSearchCard = props => (
   <Card>
     <PostersWrapper>
-      <BackgroundPoster />
-      <FrontPoster />
+      <BackgroundPoster image={props.image} />
+      <FrontPoster image={props.image} />
     </PostersWrapper>
     <TitleWrapper>
-      <Title>A Death in the Gunj</Title>
+      <Title>{props.movieName}</Title>
     </TitleWrapper>
     <WatchListBtn>+ Add to Watchlist</WatchListBtn>
   </Card>

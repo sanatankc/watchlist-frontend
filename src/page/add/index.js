@@ -37,6 +37,8 @@ export default class AddPage extends Component {
 
   state={
     searchText: '',
+    searchResults: [],
+    resultsState: 'EMPTY'
   }
 
   onSearchChange(e) {
@@ -44,7 +46,22 @@ export default class AddPage extends Component {
   }
 
   async onMovieSearch(e) {
-    console.log(await searchTMDB(this.state.searchText))
+    const searchResults = await searchTMDB(this.state.searchText)
+    this.setState({
+      searchResults,
+      resultsState: 'SUCCESS'
+    })
+    console.log('loaded')
+    console.log(searchResults)
+  }
+
+  renderResultCards() {
+    return this.state.searchResults.map(movie =>
+      <MovieSearchCard
+        key={movie.tmdbId}
+        {...movie}
+      />
+    )
   }
 
   render() {
@@ -62,9 +79,7 @@ export default class AddPage extends Component {
         </SearchWrapper>
         <MovieSearchContainer>
           <MovieSearchWrapper>
-            <MovieSearchCard />
-            <MovieSearchCard />
-            <MovieSearchCard />
+            {this.state.resultsState === 'SUCCESS' && this.renderResultCards()}
           </MovieSearchWrapper>
         </MovieSearchContainer>
       </Main>
