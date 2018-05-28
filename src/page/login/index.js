@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {  withApollo } from "react-apollo"
-import gql from "graphql-tag"
+import {  withApollo } from 'react-apollo'
+import gql from 'graphql-tag'
 import { Redirect } from 'react-router-dom'
 import {
   Main,
@@ -51,7 +51,7 @@ class Login extends Component {
     const { username, password } = this.state
     this.props.client.mutate({
       mutation: gql`mutation {
-        login(username: "${username}", password: "${password}")
+        login(username: '${username}', password: '${password}')
       }`,
     }).then(result => this.saveToken(result.data.login))
   }
@@ -60,7 +60,7 @@ class Login extends Component {
     const { username, password } = this.state
     this.props.client.mutate({
       mutation: gql`mutation {
-        signup(username: "${username}", password: "${password}")
+        signup(username: '${username}', password: '${password}')
       }`,
     }).then(result => this.saveToken(result.data.signup))
   }
