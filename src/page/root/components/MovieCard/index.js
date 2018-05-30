@@ -62,8 +62,17 @@ const Rating = styled.div`
   color: ${themeColor};
   font-size: 48px;
   font-weight: 900;
+  display: flex;
+  align-items: baseline;
   span {
     font-size: 24px;
+  }
+  div.dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    border-radius: 50%;
+    background: ${themeColor};
   }
 `
 const MiddleContentWrapper = styled.div`
@@ -121,17 +130,28 @@ const Menu = styled.div`
 `
 export default class MovieCard extends Component {
   render() {
+    const {
+      tmdbId,
+      name,
+      imdbRating,
+      director,
+      writers,
+      cast
+    } = this.props
+    console.log(this.props)
+    const splitRating = imdbRating.split('.')
+    console.log(splitRating)
     return (
       <Card>
         <ContentContainer>
           <TopContentWrapper>
-            <Title>The Godfather</Title>
-            <Rating>9.<span>2</span></Rating>
+            <Title>{name}</Title>
+            <Rating>{splitRating[0]}<div className='dot'/><span>{splitRating[1]}</span></Rating>
           </TopContentWrapper>
           <MiddleContentWrapper>
-            <Text>Directed by: <span>Francis Ford Coppola</span></Text>
-            <Text>Cast: <span>Marlon Brando, Al Pacino, James Last name</span></Text>
-            <Text>Written by: <span>Mario Puzo</span></Text>
+            <Text title={director}>Directed by: <span>{director}</span></Text>
+            <Text title={cast}>Cast: <span>{cast}</span></Text>
+            <Text title={writers}>Written by: <span>{writers}</span></Text>
           </MiddleContentWrapper>
           <BottomContentWrapper>
             <Text>Watch On:</Text>

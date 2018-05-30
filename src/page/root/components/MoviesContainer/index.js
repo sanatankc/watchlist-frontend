@@ -31,8 +31,11 @@ export default class MoviesContainer extends Component {
       <div style={{ marginTop: '40px' }}>
         <Query query={GET_MOVIES}>
           {({loading, error, data}) => {
-            console.log(data)
-            return <MovieCard />
+            if (loading) return <div />
+            if (error) return <div />
+            return data.getAddedMovies.map(movie => (
+              <MovieCard {...movie} key={movie.tmdbId} />
+            ))
           }}
         </Query>
       </div>
