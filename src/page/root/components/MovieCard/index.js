@@ -4,9 +4,17 @@ import { boxShadow, themeColor } from '../../../../constants'
 import netflixLogo from './netflix.png'
 import primeVideoLogo from './primevideo.png'
 
-const selectProviderBackground = props => {
-  if (props.provider === 'netflix') return netflixLogo
-  if (props.provider === 'primeVideo') return primeVideoLogo
+const providerSpecificCss = props => {
+  if (props.provider === 'netflix') return `
+    background: url('${netflixLogo}');
+    width: 50px;
+    height: 14px;
+  `
+  if (props.provider === 'primeVideo') return `
+    background: url('${primeVideoLogo}');
+    width: 64.5px;
+    height: 18px;
+  `
 }
 const Card = styled.div`
   display: flex;
@@ -97,15 +105,15 @@ const BottomContentWrapper = styled.div`
 const FootRow = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 15px;
+  margin-top: 5px;
   align-items: center;
 `
 const ProviderLogo = styled.div`
   width: 64.5px;
   height: 18px;
-  background: url(${selectProviderBackground});
-  background-size: cover;
   margin-right: 10px;
+  ${providerSpecificCss}
+  background-size: cover;
 `
 const Menu = styled.div`
   display: flex;
