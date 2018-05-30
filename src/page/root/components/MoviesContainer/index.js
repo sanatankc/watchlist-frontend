@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import MovieCard from '../MovieCard'
 
 const GET_MOVIES = gql`{
   getAddedMovies {
@@ -27,12 +28,14 @@ export default class MoviesContainer extends Component {
 
   render() {
     return (
-      <Query query={GET_MOVIES}>
-        {({loading, error, data}) => {
-          console.log(data)
-          return 'Movies'
-        }}
-      </Query>
+      <div style={{ marginTop: '40px' }}>
+        <Query query={GET_MOVIES}>
+          {({loading, error, data}) => {
+            console.log(data)
+            return <MovieCard />
+          }}
+        </Query>
+      </div>
     )
   }
 }

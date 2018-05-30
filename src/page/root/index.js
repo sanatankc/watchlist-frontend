@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import SearchBar from '../../components/SearchBar'
-import MoviesContainer from './MoviesContainer'
+import MoviesContainer from './components/MoviesContainer'
 import { themeColor, boxShadow } from '../../constants'
 const Main = styled.div`
   width: 100%;

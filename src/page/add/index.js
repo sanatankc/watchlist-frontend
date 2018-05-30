@@ -58,7 +58,6 @@ class AddPage extends Component {
       search: `search=${this.state.searchText}`
     })
     const searchResults = await searchTMDB(this.state.searchText)
-
     this.setState({
       searchResults,
       resultsState: 'SUCCESS'
