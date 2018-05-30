@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
 import netflixLogo from './netflix.png'
-import primeVideoLogo from './primevideo.png'
+import amazonLogo from './primevideo.png'
 
 const providerSpecificCss = props => {
   if (props.provider === 'netflix') return `
@@ -10,8 +10,8 @@ const providerSpecificCss = props => {
     width: 50px;
     height: 14px;
   `
-  if (props.provider === 'primeVideo') return `
-    background: url('${primeVideoLogo}');
+  if (props.provider === 'amazon') return `
+    background: url('${amazonLogo}');
     width: 64.5px;
     height: 18px;
   `
@@ -144,7 +144,9 @@ export default class MovieCard extends Component {
       imdbRating,
       director,
       writers,
-      cast
+      cast,
+      netflix,
+      amazon
     } = this.props
     console.log(this.props)
     const splitRating = imdbRating.split('.')
@@ -164,12 +166,16 @@ export default class MovieCard extends Component {
           <BottomContentWrapper>
             <Text>Watch On:</Text>
             <FootRow>
-              <a href='#'>
-                <ProviderLogo provider='netflix' />
-              </a>
-              <a href='#'>
-                <ProviderLogo provider='primeVideo' />
-              </a>
+              {netflix &&
+                <a href={netflix} target='_blank'>
+                  <ProviderLogo provider='netflix' />
+                </a>
+              }
+              {amazon &&
+                <a href={amazon} target='_blank'>
+                  <ProviderLogo provider='amazon' />
+                </a>
+              }
               <Menu>
                 <div />
                 <div />

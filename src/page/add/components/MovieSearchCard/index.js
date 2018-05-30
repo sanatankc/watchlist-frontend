@@ -18,7 +18,6 @@ const ADD_WATCHLIST = gql`
   mutation addMovie($tmdbId: String!, $movieName: String!) {
     addMovie(tmdbId: $tmdbId, movieName: $movieName) {
       tmdbId
-
     }
   }`
 
