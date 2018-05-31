@@ -44,7 +44,6 @@ class MovieSearchCard extends Component {
 
   saveInWatchlist(addMovie) {
     const { tmdbId, movieName } = this.props
-    console.log(tmdbId, movieName)
     addMovie({
       variables: {
         tmdbId,

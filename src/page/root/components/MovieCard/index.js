@@ -148,9 +148,7 @@ export default class MovieCard extends Component {
       netflix,
       amazon
     } = this.props
-    console.log(this.props)
     const splitRating = imdbRating.split('.')
-    console.log(splitRating)
     return (
       <Card>
         <ContentContainer>
