@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
 import netflixLogo from './netflix.png'
 import amazonLogo from './primevideo.png'
-
+import placeholderImage from './placeholder.png'
 const providerSpecificCss = props => {
   if (props.provider === 'netflix') return `
     background: url('${netflixLogo}');
@@ -42,7 +42,7 @@ const BackPoster = styled.div`
   left: 0;
   width: 166px;
   height: 250px;
-  background: url('https://image.tmdb.org/t/p/w200/xFJqU1W5WlJiKr4Witnb7h9HNHn.jpg');
+  background: url('${props => props.image}');
   filter: url('#bluish');
 `
 const FrontPoster = styled.div`
@@ -52,7 +52,7 @@ const FrontPoster = styled.div`
   bottom: 0;
   width: 166px;
   height: 250px;
-  background: url('https://image.tmdb.org/t/p/w200/xFJqU1W5WlJiKr4Witnb7h9HNHn.jpg');
+  background: url('${props => props.image}');
   box-shadow: -5px 0px 25px 0 rgba(46, 61, 73, 0.4);
 `
 const TopContentWrapper = styled.div`
@@ -146,9 +146,13 @@ export default class MovieCard extends Component {
       writers,
       cast,
       netflix,
-      amazon
+      amazon,
+      image
     } = this.props
     const splitRating = imdbRating.split('.')
+    const poster = image
+      ? `https://image.tmdb.org/t/p/w200/${image}`
+      : placeholderImage
     return (
       <Card>
         <ContentContainer>
@@ -184,8 +188,8 @@ export default class MovieCard extends Component {
           </BottomContentWrapper>
         </ContentContainer>
         <PostersContainer>
-          <FrontPoster />
-          <BackPoster />
+          <FrontPoster image={image && `https://image.tmdb.org/t/p/w200/${image}`}/>
+          <BackPoster image={image && `https://image.tmdb.org/t/p/w200/${image}`} />
         </PostersContainer>
       </Card>
     )

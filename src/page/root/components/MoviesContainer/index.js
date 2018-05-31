@@ -33,6 +33,7 @@ export default class MoviesContainer extends Component {
           {({loading, error, data}) => {
             if (loading) return <div />
             if (error) return <div />
+            console.log(data)
             return data.getAddedMovies.map(movie => (
               <MovieCard {...movie} key={movie.tmdbId} />
             ))
