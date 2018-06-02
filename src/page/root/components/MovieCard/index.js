@@ -24,6 +24,7 @@ const Card = styled.div`
   box-shadow: ${boxShadow};
   background: white;
   overflow: hidden;
+  margin-top: 30px;
 `
 const ContentContainer = styled.div`
   width: calc(550px - 200px);

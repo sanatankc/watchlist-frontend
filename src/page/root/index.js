@@ -3,7 +3,11 @@ import styled from 'styled-components'
 import SearchBar from '../../components/SearchBar'
 import MoviesContainer from './components/MoviesContainer'
 import { themeColor, boxShadow } from '../../constants'
+
 const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   padding: 0 50px;
   box-sizing: border-box;
