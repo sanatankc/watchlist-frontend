@@ -93,6 +93,7 @@ export const Title = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
 `
 export const WatchListBtn = styled.button`
   border: none;

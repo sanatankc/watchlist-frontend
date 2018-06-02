@@ -68,6 +68,7 @@ const TopContentWrapper = styled.div`
 const Title = styled.div`
   font-size: 18px;
   letter-spacing: 2.2px;
+  text-transform: capitalize;
 `
 const Rating = styled.div`
   color: ${themeColor};
