@@ -6,6 +6,6 @@ export default async searchTerm => {
   return results.map(movie => ({
     tmdbId: movie.id,
     movieName: movie.title,
-    image: movie.poster_path && `https://image.tmdb.org/t/p/w200${movie.poster_path}`,
+    image: movie.poster_path && `https://image.tmdb.org/t/p/w200_and_h300_bestv2${movie.poster_path}`,
   }))
 }

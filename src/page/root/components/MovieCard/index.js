@@ -44,6 +44,7 @@ const BackPoster = styled.div`
   width: 166px;
   height: 250px;
   background: url('${props => props.image}');
+  background-size: cover;
   filter: url('#bluish');
 `
 const FrontPoster = styled.div`
@@ -54,6 +55,7 @@ const FrontPoster = styled.div`
   width: 166px;
   height: 250px;
   background: url('${props => props.image}');
+  background-size: cover;
   box-shadow: -5px 0px 25px 0 rgba(46, 61, 73, 0.4);
 `
 const TopContentWrapper = styled.div`
@@ -152,7 +154,7 @@ export default class MovieCard extends Component {
     } = this.props
     const splitRating = imdbRating.split('.')
     const poster = image
-      ? `https://image.tmdb.org/t/p/w200/${image}`
+      ? `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`
       : placeholderImage
     return (
       <Card>
@@ -189,8 +191,8 @@ export default class MovieCard extends Component {
           </BottomContentWrapper>
         </ContentContainer>
         <PostersContainer>
-          <FrontPoster image={image && `https://image.tmdb.org/t/p/w200/${image}`}/>
-          <BackPoster image={image && `https://image.tmdb.org/t/p/w200/${image}`} />
+          <FrontPoster image={image && `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`}/>
+          <BackPoster image={image && `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`} />
         </PostersContainer>
       </Card>
     )
