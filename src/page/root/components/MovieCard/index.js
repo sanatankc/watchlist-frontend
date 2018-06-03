@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
+import DropDown from '../Dropdown'
 import netflixLogo from './netflix.png'
 import amazonLogo from './primevideo.png'
 import placeholderImage from './placeholder.png'
+
 const providerSpecificCss = props => {
   if (props.provider === 'netflix') return `
     background: url('${netflixLogo}');
@@ -23,7 +25,6 @@ const Card = styled.div`
   border-radius: 4px;
   box-shadow: ${boxShadow};
   background: white;
-  overflow: hidden;
   margin-top: 30px;
 `
 const ContentContainer = styled.div`
@@ -35,6 +36,8 @@ const ContentContainer = styled.div`
 const PostersContainer = styled.div`
   position: relative;
   width: 200px;
+  border: 4px;
+  overflow: none;
 `
 const BackPoster = styled.div`
   position: absolute;
@@ -123,6 +126,7 @@ const Menu = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: relative;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -130,7 +134,7 @@ const Menu = styled.div`
   padding: 5px;
   margin-left: auto;
   transition: 0.3s all ease-in-out;
-  div {
+  div.dot {
     width: 4px;
     height: 4px;
     background: black;
@@ -157,6 +161,7 @@ export default class MovieCard extends Component {
     const poster = image
       ? `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`
       : placeholderImage
+
     return (
       <Card>
         <ContentContainer>
@@ -182,10 +187,13 @@ export default class MovieCard extends Component {
                   <ProviderLogo provider='amazon' />
                 </a>
               }
-              <Menu>
-                <div />
-                <div />
-                <div />
+              <Menu className={`card-dropdown-${tmdbId}`}>
+                <div className='dot' />
+                <div className='dot' />
+                <div className='dot' />
+                <DropDown
+                  parentClass={`card-dropdown-${tmdbId}`}
+                />
               </Menu>
             </FootRow>
 
