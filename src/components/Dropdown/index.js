@@ -18,6 +18,7 @@ const Container = styled.div`
   transition: 0.2s all ease-in-out;
   transform: ${props => props.isVisible ? 'scale(1)': 'scale(0)'} ;
   transform-origin: top;
+  z-index: 10;
 `
 const Item = styled.div`
   width: 100%;
