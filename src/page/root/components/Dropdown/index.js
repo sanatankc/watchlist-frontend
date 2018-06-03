@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import { boxShadow } from '../../../../constants'
 
@@ -16,7 +16,7 @@ const Container = styled.div`
   text-align: center;
   border-radius: 4px;
   transition: 0.2s all ease-in-out;
-  transform: ${props => props.show ? 'scale(1)': 'scale(0)'} ;
+  transform: ${props => props.isVisible ? 'scale(1)': 'scale(0)'} ;
   transform-origin: top;
 `
 const Item = styled.div`
@@ -29,13 +29,56 @@ const Item = styled.div`
   }
 `
 
-const DropDown = props => {
-  console.log(props)
-  return <Container show={props.show}>
-    <Item>Move to watched</Item>
-    <Item>Edit</Item>
-    <Item>Delete</Item>
-  </Container>
+class DropDown extends Component {
+  constructor(props) {
+    super(props)
+    this.onMenuClick = this.onMenuClick.bind(this)
+    this.onOutsideClick = this.onOutsideClick.bind(this)
+  }
+
+  state = {
+    isVisible: false,
+    shouldOutSideClick: false
+  }
+
+  onOutsideClick(event) {
+    if (!this.state.shouldOutSideClick) return
+    if (!this.menu.contains(event.target)) {
+      this.closeDropdown()
+    }
+  }
+
+  componentDidMount() {
+    this.menu = document.querySelector(`.${this.props.parentClass}`)
+    this.menu.addEventListener('click', this.onMenuClick)
+    document.addEventListener('click', this.onOutsideClick)
+  }
+
+  onMenuClick() {
+    if (this.state.isVisible) {
+      this.closeDropdown()
+    } else {
+      this.openDropdown()
+    }
+  }
+
+  openDropdown() {
+    this.setState({ isVisible: true, shouldOutSideClick: true })
+  }
+
+  closeDropdown() {
+    this.setState({ isVisible: false, shouldOutSideClick: false })
+  }
+
+  render() {
+    return (
+      <Container isVisible={this.state.isVisible}>
+        <Item>Move to watched</Item>
+        <Item>Edit</Item>
+        <Item>Delete</Item>
+      </Container>
+    )
+  }
 }
 
 
