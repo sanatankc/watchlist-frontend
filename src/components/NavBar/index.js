@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import logo from '../../logo.png'
 import { boxShadow } from '../../constants'
 import isAuthenticated from '../../isAuthenticated'
+import Dropdown from '../Dropdown'
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const Logo = styled.img`
 `
 
 const ProfileMenu = styled.div`
+  position: relative;
   height: 35px;
   width: 35px;
   background: #222;
@@ -45,7 +47,20 @@ const NavBar = props => {
   return (
     <Wrapper>
       <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
-      {isAuthenticated() && <ProfileMenu />}
+      {isAuthenticated() &&
+        <ProfileMenu className='profile-menu'>
+          <Dropdown
+            parentClass='profile-menu'
+            width='250px'
+            items= {[
+              { label: 'Watched Movies', onClick: () => {}},
+              { label: 'Watch a random movie', onClick: () => {}},
+              { label: 'Profile', onClick: () => {}},
+              { label: 'Logout', onClick: () => {} }
+            ]}
+          />
+        </ProfileMenu>
+      }
     </Wrapper>
 )}
 

@@ -10,7 +10,7 @@ const Container = styled.div`
   right: 30%;
   box-shadow: ${boxShadow};
   background: white;
-  width: 190px;
+  width: ${props => props.width ? props.width : '200px'};
   font-size: 14px;
   padding: 10px 0;
   text-align: center;
@@ -72,7 +72,11 @@ class DropDown extends Component {
 
   render() {
     return (
-      <Container isVisible={this.state.isVisible} innerRef={container => {this.container = container}}>
+      <Container
+        width={this.props.width}
+        isVisible={this.state.isVisible}
+        innerRef={container => {this.container = container}}
+      >
         {this.props.items.map(item => (
           <Item key={item.label} onClick={item.onClick}>{item.label}</Item>
         ))}
