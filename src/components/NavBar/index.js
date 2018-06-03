@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import logo from '../../logo.png'
 import { boxShadow } from '../../constants'
 import isAuthenticated from '../../isAuthenticated'
@@ -31,37 +31,51 @@ const ProfileMenu = styled.div`
   cursor: pointer;
 `
 
-const NavBar = props => {
-  const { pathname } = props.location
-  const routeSwitch = {
-    '/': {
-      logoTranslateX: '0px'
-    },
-    '/login': {
-      logoTranslateX: 'calc(50vw - 86px - 20px)'
-    },
-    '/add': {
-      logoTranslateX: '0px'
-    }
+class  NavBar extends Component {
+  constructor(props) {
+    super(props)
+    this.onLogout = this.onLogout.bind(this)
   }
-  return (
-    <Wrapper>
-      <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
-      {isAuthenticated() &&
-        <ProfileMenu className='profile-menu'>
-          <Dropdown
-            parentClass='profile-menu'
-            width='250px'
-            items= {[
-              { label: 'Watched Movies', onClick: () => {}},
-              { label: 'Watch a random movie', onClick: () => {}},
-              { label: 'Profile', onClick: () => {}},
-              { label: 'Logout', onClick: () => {} }
-            ]}
-          />
-        </ProfileMenu>
+
+  onLogout() {
+    localStorage.setItem('access_token', '')
+    this.props.history.push('/login')
+  }
+
+  render()  {
+    const { pathname } = this.props.location
+    const routeSwitch = {
+      '/': {
+        logoTranslateX: '0px'
+      },
+      '/login': {
+        logoTranslateX: 'calc(50vw - 86px - 20px)'
+      },
+      '/add': {
+        logoTranslateX: '0px'
       }
-    </Wrapper>
-)}
+    }
+
+    return (
+      <Wrapper>
+        <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
+        {isAuthenticated() &&
+          <ProfileMenu className='profile-menu'>
+            <Dropdown
+              parentClass='profile-menu'
+              width='250px'
+              items= {[
+                { label: 'Watched Movies', onClick: () => {}},
+                { label: 'Watch a random movie', onClick: () => {}},
+                { label: 'Profile', onClick: () => {}},
+                { label: 'Logout', onClick: this.onLogout }
+              ]}
+            />
+          </ProfileMenu>
+        }
+      </Wrapper>
+    )
+  }
+}
 
 export default withRouter(NavBar)
