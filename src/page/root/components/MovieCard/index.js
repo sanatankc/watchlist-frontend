@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { boxShadow, themeColor } from '../../../../constants'
-import DropDown from '../Dropdown'
+import DropDown from '../../../../components/Dropdown'
 import netflixLogo from './netflix.png'
 import amazonLogo from './primevideo.png'
 import placeholderImage from './placeholder.png'
