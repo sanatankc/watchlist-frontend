@@ -72,10 +72,10 @@ class DropDown extends Component {
 
   render() {
     return (
-      <Container isVisible={this.state.isVisible}>
-        <Item>Move to watched</Item>
-        <Item>Edit</Item>
-        <Item>Delete</Item>
+      <Container isVisible={this.state.isVisible} innerRef={container => {this.container = container}}>
+        {this.props.items.map(item => (
+          <Item key={item.label} onClick={item.onClick}>{item.label}</Item>
+        ))}
       </Container>
     )
   }

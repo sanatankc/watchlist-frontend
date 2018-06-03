@@ -145,6 +145,25 @@ const Menu = styled.div`
   }
 `
 export default class MovieCard extends Component {
+  constructor(props) {
+    super(props)
+    this.onMoveToWatched = this.onMoveToWatched.bind(this)
+    this.onEdit = this.onEdit.bind(this)
+    this.onDelete = this.onDelete.bind(this)
+  }
+
+  onMoveToWatched() {
+    console.log('moveToWatched')
+  }
+
+  onEdit() {
+    console.log('edit')
+  }
+
+  onDelete() {
+    console.log('delete')
+  }
+
   render() {
     const {
       tmdbId,
@@ -193,6 +212,11 @@ export default class MovieCard extends Component {
                 <div className='dot' />
                 <DropDown
                   parentClass={`card-dropdown-${tmdbId}`}
+                  items= {[
+                    { label: 'Move to watched', onClick: this.onMoveToWatched},
+                    { label: 'Edit', onClick: this.onEdit },
+                    { label: 'Delete', onClick: this.onDelete }
+                  ]}
                 />
               </Menu>
             </FootRow>
