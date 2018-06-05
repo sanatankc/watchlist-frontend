@@ -3,24 +3,7 @@ import styled from 'styled-components'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import MovieCard from '../MovieCard'
-
-const GET_MOVIES = gql`{
-  getAddedMovies {
-    tmdbId
-    imdbId
-    name
-    releaseDate
-    image
-    duration
-    director
-    writers
-    cast
-    imdbRating
-    trailer
-    netflix
-    amazon
-  }
-}`
+import GET_MOVIES from '../../../../gql/getMovies'
 
 const Container = styled.div`
   display: flex;

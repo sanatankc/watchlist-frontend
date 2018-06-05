@@ -13,11 +13,24 @@ import {
   Title,
   WatchListBtn
 } from './index.style'
+import GET_MOVIES from '../../../../gql/getMovies'
 
 const ADD_WATCHLIST = gql`
   mutation addMovie($tmdbId: String!, $movieName: String!) {
     addMovie(tmdbId: $tmdbId, movieName: $movieName) {
       tmdbId
+      imdbId
+      name
+      releaseDate
+      image
+      duration
+      director
+      writers
+      cast
+      imdbRating
+      trailer
+      netflix
+      amazon
     }
   }`
 
@@ -70,7 +83,20 @@ class MovieSearchCard extends Component {
           <Title>{this.props.movieName}</Title>
         </TitleWrapper>
 
-        <Mutation mutation={ADD_WATCHLIST}>
+        <Mutation
+          mutation={ADD_WATCHLIST}
+          update={(cache, { data: { addMovie } }) => {
+            try {
+              const { getAddedMovies } = cache.readQuery({ query: GET_MOVIES })
+              cache.writeQuery({
+                query: GET_MOVIES,
+                data: { getAddedMovies: getAddedMovies.concat(addMovie)}
+              })
+            } catch(e) {
+              console.log('ROOT_QUERY is not available')
+            }
+          }}
+        >
           {(addMovie, { data }) => (
             <WatchListBtn btnStatus={this.state.btnStatus} onClick={() => {
               this.saveInWatchlist(addMovie)
