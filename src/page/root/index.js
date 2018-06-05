@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import SearchBar from '../../components/SearchBar'
 import MoviesContainer from './components/MoviesContainer'
 import { themeColor, boxShadow } from '../../constants'
@@ -64,7 +65,9 @@ export default class RootPage extends Component {
             onChange={this.onSearchChange}
             value={this.state.searchText}
           ></SearchBar>
-          <AddNewBtn>+ add new</AddNewBtn>
+          <Link to='/add'>
+            <AddNewBtn>+ add new</AddNewBtn>
+          </Link>
         </TopWrapper>
         <MoviesContainer />
       </Main>
