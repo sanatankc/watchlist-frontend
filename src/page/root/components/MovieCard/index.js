@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { withApollo } from 'react-apollo'
+import gql from 'graphql-tag'
 import { boxShadow, themeColor } from '../../../../constants'
 import DropDown from '../../../../components/Dropdown'
 import netflixLogo from './netflix.png'
 import amazonLogo from './primevideo.png'
 import placeholderImage from './placeholder.png'
+import GET_MOVIES from '../../../../gql/getMovies'
 
 const providerSpecificCss = props => {
   if (props.provider === 'netflix') return `
@@ -144,7 +147,7 @@ const Menu = styled.div`
     box-shadow: ${boxShadow};
   }
 `
-export default class MovieCard extends Component {
+class MovieCard extends Component {
   constructor(props) {
     super(props)
     this.onMoveToWatched = this.onMoveToWatched.bind(this)
@@ -162,6 +165,21 @@ export default class MovieCard extends Component {
 
   onDelete() {
     console.log('delete')
+    this.props.client.mutate({
+      mutation: gql`mutation {
+        deleteMovie(tmdbId: "${this.props.tmdbId}") {
+          tmdbId
+        }
+      }`
+    }).then(res => {
+      const { cache } = this.props.client
+      const { getAddedMovies } = cache.readQuery({ query: GET_MOVIES })
+      const { deleteMovie } = res.data
+      cache.writeQuery({
+        query: GET_MOVIES,
+        data: { getAddedMovies: getAddedMovies.filter(movie => movie.tmdbId !== deleteMovie.tmdbId) }
+      })
+    })
   }
 
   render() {
@@ -231,3 +249,5 @@ export default class MovieCard extends Component {
     )
   }
 }
+
+export default withApollo(MovieCard)
