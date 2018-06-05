@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect, Link } from 'react-router-dom'
 import logo from '../../logo.png'
 import { boxShadow } from '../../constants'
 import isAuthenticated from '../../isAuthenticated'
@@ -58,7 +58,9 @@ class  NavBar extends Component {
 
     return (
       <Wrapper>
-        <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
+        <Link to='/'>
+          <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
+        </Link>
         {isAuthenticated() &&
           <ProfileMenu className='profile-menu'>
             <Dropdown
