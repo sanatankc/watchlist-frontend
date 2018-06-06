@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Query } from 'react-apollo'
+import { Query, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import MovieCard from '../MovieCard'
 import GET_MOVIES from '../../../../gql/getMovies'
@@ -14,9 +14,32 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
-export default class MoviesContainer extends Component {
+class MoviesContainer extends Component {
   constructor(props) {
     super(props)
+    this.onDelete = this.onDelete.bind(this)
+  }
+
+  onDelete(tmdbId) {
+    return () => {
+      console.log(tmdbId)
+      this.props.client.mutate({
+        mutation: gql`mutation {
+          deleteMovie(tmdbId: "${tmdbId}") {
+            tmdbId
+          }
+        }`
+      }).then(res => {
+        const { cache } = this.props.client
+        const { getAddedMovies } = cache.readQuery({ query: GET_MOVIES })
+        const { deleteMovie } = res.data
+        cache.writeQuery({
+          query: GET_MOVIES,
+          data: { getAddedMovies: getAddedMovies.filter(movie => movie.tmdbId !== deleteMovie.tmdbId) }
+        })
+        this.forceUpdate()
+      })
+    }
   }
 
   render() {
@@ -28,7 +51,7 @@ export default class MoviesContainer extends Component {
             if (error) return <div />
             console.log(data)
             return data.getAddedMovies.map(movie => (
-              <MovieCard {...movie} key={movie.tmdbId} />
+              <MovieCard {...movie} key={movie.tmdbId} onDelete={this.onDelete(movie.tmdbId)} />
             ))
           }}
         </Query>
@@ -36,3 +59,5 @@ export default class MoviesContainer extends Component {
     )
   }
 }
+
+export default withApollo(MoviesContainer)
