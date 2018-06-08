@@ -47,19 +47,40 @@ export default class RootPage extends Component {
   constructor(props) {
     super(props)
     this.onSearchChange = this.onSearchChange.bind(this)
+    this.openTrailer = this.openTrailer.bind(this)
+    this.closeTrailer = this.closeTrailer.bind(this)
   }
 
   state = {
-    searchText: ''
+    searchText: '',
+    shouldTrailerShow: false,
+    trailerId: '',
   }
   onSearchChange(e) {
     this.setState({searchText: e.target.value})
   }
 
+  openTrailer(trailerId) {
+    this.setState({
+      shouldTrailerShow: true,
+      trailerId,
+    })
+  }
+
+  closeTrailer() {
+    this.setState({
+      shouldTrailerShow: false
+    })
+  }
+
   render() {
     return (
       <Main>
-        <Youtube ytId='WQkHA3fHk_0' />
+        <Youtube
+          ytId={this.state.trailerId}
+          shouldShow={this.state.shouldTrailerShow}
+          closeTrailer={this.closeTrailer}
+        />
         <TopWrapper>
           <SearchBar
             width='350px'
@@ -71,7 +92,7 @@ export default class RootPage extends Component {
             <AddNewBtn>+ add new</AddNewBtn>
           </Link>
         </TopWrapper>
-        <MoviesContainer />
+        <MoviesContainer openTrailer={this.openTrailer} />
       </Main>
     )
   }

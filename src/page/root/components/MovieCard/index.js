@@ -177,7 +177,8 @@ class MovieCard extends Component {
       netflix,
       amazon,
       image,
-      onDelete
+      onDelete,
+      trailer
     } = this.props
     const splitRating = imdbRating.split('.')
     const poster = image
@@ -226,7 +227,12 @@ class MovieCard extends Component {
           </BottomContentWrapper>
         </ContentContainer>
         <PostersContainer>
-          <FrontPoster image={poster} />
+          <FrontPoster
+            image={poster}
+            onClick={() => {
+              this.props.openTrailer(trailer)
+            }}
+          />
           <BackPoster image={poster} />
         </PostersContainer>
       </Card>

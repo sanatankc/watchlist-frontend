@@ -1,5 +1,5 @@
 # TODO
 
+- Way to show descriptions in cards
 - Way to edit movieCards
-- Dropdown in MovieCard
 - Move to watched

@@ -51,7 +51,11 @@ class MoviesContainer extends Component {
             if (error) return <div />
             console.log(data)
             return data.getAddedMovies.map(movie => (
-              <MovieCard {...movie} key={movie.tmdbId} onDelete={this.onDelete(movie.tmdbId)} />
+              <MovieCard {...movie}
+                key={movie.tmdbId}
+                onDelete={this.onDelete(movie.tmdbId)}
+                openTrailer={this.props.openTrailer}
+            />
             ))
           }}
         </Query>

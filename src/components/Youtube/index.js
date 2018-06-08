@@ -23,13 +23,13 @@ export default class extends Component {
   render() {
     return (
       this.props.shouldShow
-        ? <Overlay>
+        ? <Overlay onClick={this.props.closeTrailer}>
             <Youtube
               id="ytplayer"
               type="text/html"
               width="640"
               height="360"
-              src={`https://www.youtube.com/embed/${this.props.ytId}?autoplay=1`}
+              src={`https://www.youtube.com/embed/${this.props.ytId}?autoplay=1&iv_load_policy=3`}
               frameborder="0"
               allowFullScreen
               tabIndex="0"
