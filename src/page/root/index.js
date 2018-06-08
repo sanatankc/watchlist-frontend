@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import SearchBar from '../../components/SearchBar'
 import MoviesContainer from './components/MoviesContainer'
+import Youtube from '../../components/Youtube'
 import { themeColor, boxShadow } from '../../constants'
 
 const Main = styled.div`
@@ -58,6 +59,7 @@ export default class RootPage extends Component {
   render() {
     return (
       <Main>
+        <Youtube ytId='WQkHA3fHk_0' />
         <TopWrapper>
           <SearchBar
             width='350px'
