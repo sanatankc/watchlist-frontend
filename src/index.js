@@ -12,7 +12,7 @@ import NavBar from './components/NavBar'
 import registerServiceWorker from './registerServiceWorker'
 
 const httpLink = createHttpLink({
-  uri: 'https://watchlist-zudhxgudzz.now.sh/graphql',
+  uri: 'https://watchlist-bkgshpvwcp.now.sh/graphql',
   credentials: 'include'
 })
 
