@@ -180,6 +180,7 @@ class MovieCard extends Component {
       onDelete
     } = this.props
     const splitRating = imdbRating.split('.')
+    const poster = image
       ? `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`
       : placeholderImage
     return (
@@ -225,8 +226,8 @@ class MovieCard extends Component {
           </BottomContentWrapper>
         </ContentContainer>
         <PostersContainer>
-          <FrontPoster image={image && `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`}/>
-          <BackPoster image={image && `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`} />
+          <FrontPoster image={poster} />
+          <BackPoster image={poster} />
         </PostersContainer>
       </Card>
     )
