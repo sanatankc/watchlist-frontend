@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import gql from 'graphql-tag'
 import { boxShadow, themeColor } from '../../../../constants'
 import DropDown from '../../../../components/Dropdown'
 import netflixLogo from './netflix.png'
@@ -69,10 +68,16 @@ const TopContentWrapper = styled.div`
   width: 100%;
   height: 50px;
 `
-const Title = styled.div`
+const Title = styled.a`
   font-size: 18px;
   letter-spacing: 2.2px;
   text-transform: capitalize;
+  color: #111;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `
 const Rating = styled.div`
   color: ${themeColor};
@@ -162,6 +167,7 @@ class MovieCard extends Component {
 
   render() {
     const {
+      imdbId,
       tmdbId,
       name,
       imdbRating,
@@ -174,14 +180,13 @@ class MovieCard extends Component {
       onDelete
     } = this.props
     const splitRating = imdbRating.split('.')
-    const poster = image
       ? `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`
       : placeholderImage
     return (
       <Card>
         <ContentContainer>
           <TopContentWrapper>
-            <Title>{name}</Title>
+            <Title href={`https://www.imdb.com/title/${imdbId}`} target='_blank'>{name}</Title>
             <Rating>{splitRating[0]}<div className='dot'/><span>{splitRating[1]}</span></Rating>
           </TopContentWrapper>
           <MiddleContentWrapper>
