@@ -59,7 +59,7 @@ class  NavBar extends Component {
     return (
       <Wrapper>
         <Link to='/'>
-          <Logo src={logo} translateX={routeSwitch[pathname].logoTranslateX}></Logo>
+          <Logo src={logo} translateX={routeSwitch[pathname] ? routeSwitch[pathname].logoTranslateX : '0px'}></Logo>
         </Link>
         {isAuthenticated() &&
           <ProfileMenu className='profile-menu'>

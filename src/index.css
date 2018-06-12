@@ -4,3 +4,7 @@ body {
   font-family: sans-serif;
   letter-spacing: 2.2px;
 }
+
+body svg#svg-filter {
+  display: none;
+}

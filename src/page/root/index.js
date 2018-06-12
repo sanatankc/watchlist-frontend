@@ -11,7 +11,7 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 0 50px;
+  padding: 0 50px 50px;
   box-sizing: border-box;
 `
 const TopWrapper = styled.div`
