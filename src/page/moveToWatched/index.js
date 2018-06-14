@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Editor from './Editor'
-import { boxShadow } from '../../constants'
+import { boxShadow, themeColor } from '../../constants'
 
 const Main = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const TitleArea = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 110px;
+  height: 80px;
 `
 const Wrapper = styled.div`
   max-width: 700px;
@@ -24,7 +24,7 @@ const Footer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 45px;
+  height: 55px;
   box-shadow: ${boxShadow};
 `
 const EditorContainer = styled.div`
@@ -35,14 +35,18 @@ const EditorContainer = styled.div`
   overflow: scroll;
 `
 const EditorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 700px;
   width: calc(100vw - 20px);
   padding: 10px 0;
   box-sizing: border-box;
   .public-DraftEditor-content {
     box-sizing: border-box;
-    min-height: calc(100vh - 210px);
+    min-height: calc(100vh - 250px);
     width: 100%;
+    line-height: 1.58;
   }
 `
 const TitleTag = styled.div`
@@ -64,6 +68,24 @@ const Title = styled.div`
 const FooterWrapper = styled(Wrapper)`
   display: flex;
   flex-direction: row-reverse;
+  align-items: center;
+`
+const SaveButton = styled.div`
+  outline: none;
+  border: none;
+  background: ${themeColor};
+  color: white;
+  font-size: 16px;
+  letter-spacing: 2.2px;
+  padding: 10px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: ${boxShadow};
+`
+const CancelButton = styled(SaveButton)`
+  color: ${themeColor};
+  background: white;
+  margin-right: 20px;
 `
 
 class MoveToWatched extends Component {
@@ -84,10 +106,8 @@ class MoveToWatched extends Component {
         </EditorContainer>
         <Footer>
           <FooterWrapper>
-            <div>
-              <button>save</button>
-              <button>cancel</button>
-            </div>
+            <SaveButton>save</SaveButton>
+            <CancelButton>cancel</CancelButton>
           </FooterWrapper>
         </Footer>
       </Main>

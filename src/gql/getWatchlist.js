@@ -1,7 +1,7 @@
 import gql from "graphql-tag"
 
-const GET_MOVIES = gql`{
-  getAddedMovies {
+const GET_WATCHLIST = gql`{
+  getAddedMovies(isInWatchList: true) {
     tmdbId
     imdbId
     name
@@ -18,4 +18,4 @@ const GET_MOVIES = gql`{
   }
 }`
 
-export default GET_MOVIES
+export default GET_WATCHLIST

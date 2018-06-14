@@ -13,7 +13,7 @@ import {
   Title,
   WatchListBtn
 } from './index.style'
-import GET_MOVIES from '../../../../gql/getMovies'
+import GET_WATCHLIST from '../../../../gql/getWatchlist'
 
 const ADD_WATCHLIST = gql`
   mutation addMovie($tmdbId: String!, $movieName: String!) {
@@ -87,9 +87,9 @@ class MovieSearchCard extends Component {
           mutation={ADD_WATCHLIST}
           update={(cache, { data: { addMovie } }) => {
             try {
-              const { getAddedMovies } = cache.readQuery({ query: GET_MOVIES })
+              const { getAddedMovies } = cache.readQuery({ query: GET_WATCHLIST })
               cache.writeQuery({
-                query: GET_MOVIES,
+                query: GET_WATCHLIST,
                 data: { getAddedMovies: getAddedMovies.concat(addMovie)}
               })
             } catch(e) {

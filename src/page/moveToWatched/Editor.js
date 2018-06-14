@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { EditorState, RichUtils } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import { stateToHTML } from 'draft-js-export-html'
@@ -45,14 +45,15 @@ class MyEditor extends React.Component {
   render() {
     const { editorState } = this.state
     return (
-      <Editor
-        editorState={editorState}
-        onChange={this.onChange}
-        handleKeyCommand={this.handleKeyCommand}
-        ref={element => { this.editor = element }}
-        placeholder="Write here..."
-        spellCheck
-      />
+      <Fragment>
+        <Editor
+          editorState={editorState}
+          onChange={this.onChange}
+          handleKeyCommand={this.handleKeyCommand}
+          ref={element => { this.editor = element }}
+          placeholder="Write here..."
+        />
+      </Fragment>
     )
   }
 }

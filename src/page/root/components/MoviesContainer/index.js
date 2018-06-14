@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Query, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import MovieCard from '../MovieCard'
-import GET_MOVIES from '../../../../gql/getMovies'
+import GET_WATCHLIST from '../../../../gql/getWatchlist'
 
 const Container = styled.div`
   display: flex;
@@ -31,10 +31,10 @@ class MoviesContainer extends Component {
         }`
       }).then(res => {
         const { cache } = this.props.client
-        const { getAddedMovies } = cache.readQuery({ query: GET_MOVIES })
+        const { getAddedMovies } = cache.readQuery({ query: GET_WATCHLIST })
         const { deleteMovie } = res.data
         cache.writeQuery({
-          query: GET_MOVIES,
+          query: GET_WATCHLIST,
           data: { getAddedMovies: getAddedMovies.filter(movie => movie.tmdbId !== deleteMovie.tmdbId) }
         })
         this.forceUpdate()
@@ -45,7 +45,7 @@ class MoviesContainer extends Component {
   render() {
     return (
       <Container>
-        <Query query={GET_MOVIES}>
+        <Query query={GET_WATCHLIST}>
           {({loading, error, data}) => {
             if (loading) return <div />
             if (error) return <div />
