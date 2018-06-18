@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
 import { boxShadow, themeColor } from '../../../../constants'
 import DropDown from '../../../../components/Dropdown'
 import netflixLogo from './netflix.png'
@@ -158,7 +159,11 @@ class MovieCard extends Component {
   }
 
   onMoveToWatched() {
-    console.log('moveToWatched')
+    const { tmdbId, name, history } = this.props
+    history.push('/move-to-watched', {
+      tmdbId,
+      name
+    })
   }
 
   onEdit() {
@@ -180,7 +185,7 @@ class MovieCard extends Component {
       onDelete,
       trailer
     } = this.props
-    const splitRating = imdbRating.split('.')
+    const splitRating = imdbRating ? imdbRating.split('.') : null
     const poster = image
       ? `https://image.tmdb.org/t/p/w200_and_h300_bestv2/${image}`
       : placeholderImage
@@ -189,7 +194,9 @@ class MovieCard extends Component {
         <ContentContainer>
           <TopContentWrapper>
             <Title href={`https://www.imdb.com/title/${imdbId}`} target='_blank'>{name}</Title>
-            <Rating>{splitRating[0]}<div className='dot'/><span>{splitRating[1]}</span></Rating>
+            {imdbRating &&
+              <Rating>{splitRating[0]}<div className='dot'/><span>{splitRating[1]}</span></Rating>
+            }
           </TopContentWrapper>
           <MiddleContentWrapper>
             <Text title={director}>Directed by: <span>{director}</span></Text>
@@ -240,4 +247,4 @@ class MovieCard extends Component {
   }
 }
 
-export default MovieCard
+export default withRouter(MovieCard)

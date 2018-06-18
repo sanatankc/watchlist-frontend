@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { Mutation, withApollo } from 'react-apollo'
+import { EditorState, RichUtils } from 'draft-js'
+import { Redirect } from 'react-router-dom'
+import { stateToHTML } from 'draft-js-export-html'
+import GET_WATCHLIST from '../../gql/getWatchlist'
+import gql from 'graphql-tag'
 import Editor from './Editor'
 import { boxShadow, themeColor } from '../../constants'
 
@@ -88,25 +94,74 @@ const CancelButton = styled(SaveButton)`
   margin-right: 20px;
 `
 
+const UPDATE_MOVIE = (tmdbId, isInWatchList, notes) => gql`mutation {
+    updateUserMovie(tmdbId: "${tmdbId}", isInWatchList: ${isInWatchList}, notes: "${notes}") {
+      tmdbId
+      notes
+      isInWatchList
+    }
+}`
+
 class MoveToWatched extends Component {
+  state = {
+    editorState: EditorState.createEmpty(),
+    success: false,
+  }
+  onEditorChange = this.onEditorChange.bind(this)
+
+  onEditorChange(editorState) {
+    this.setState({ editorState })
+  }
+
+  saveAndMove = async () => {
+    const { tmdbId } = this.props.location.state
+    const notes = stateToHTML(this.state.editorState.getCurrentContent())
+    const { client } = this.props
+    const { data: { updateUserMovie } } = await client.mutate({
+      mutation: UPDATE_MOVIE(tmdbId, false, notes)
+    })
+
+    try {
+      const { getAddedMovies } = client.readQuery({ query: GET_WATCHLIST })
+      console.log(getAddedMovies)
+      const filterWatchedMovie = getAddedMovies.filter(movie => movie.tmdbId !== updateUserMovie.tmdbId)
+      client.writeQuery({
+        query: GET_WATCHLIST,
+        data: { getAddedMovies: filterWatchedMovie}
+      })
+    } catch(e) {
+      console.log(`Can't write to RootQuery`)
+    }
+
+    this.setState({ success: true })
+  }
+
   render() {
+    if (this.state.success) return <Redirect to='/' />
+    if (!this.props.location.state) return <Redirect to='/' />
+
+    const { name } = this.props.location.state
     return (
       <Main>
         <TitleArea>
           <Wrapper>
             <TitleTag>Move To Watched</TitleTag>
             <Hr />
-            <Title>Notes/Opinion/Review about The Godfather</Title>
+            <Title>Notes/Opinion/Review about {name}</Title>
           </Wrapper>
         </TitleArea>
         <EditorContainer className='editor-container'>
           <EditorWrapper>
-            <Editor containerClassName='editor-container' />
+            <Editor
+              containerClassName='editor-container'
+              editorState={this.state.editorState}
+              onEditorChange={this.onEditorChange}
+            />
           </EditorWrapper>
         </EditorContainer>
         <Footer>
           <FooterWrapper>
-            <SaveButton>save</SaveButton>
+            <SaveButton onClick={this.saveAndMove}>save</SaveButton>
             <CancelButton>cancel</CancelButton>
           </FooterWrapper>
         </Footer>
@@ -115,4 +170,4 @@ class MoveToWatched extends Component {
   }
 }
 
-export default MoveToWatched
+export default withApollo(MoveToWatched)

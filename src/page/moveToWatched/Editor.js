@@ -7,10 +7,6 @@ import 'draft-js/dist/Draft.css'
 class MyEditor extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      editorState: EditorState.createEmpty(),
-    }
-    this.onChange = this.onChange.bind(this)
     this.focus = this.focus.bind(this)
     this.handleKeyCommand = this.handleKeyCommand.bind(this)
   }
@@ -30,25 +26,17 @@ class MyEditor extends React.Component {
     return 'not-handled';
   }
 
-  onChange(editorState) {
-    this.setState({
-      editorState,
-    }, () => {
-      console.log(stateToHTML(this.state.editorState.getCurrentContent()))
-    })
-  }
 
   focus() {
     this.editor.focus()
   }
 
   render() {
-    const { editorState } = this.state
     return (
       <Fragment>
         <Editor
-          editorState={editorState}
-          onChange={this.onChange}
+          editorState={this.props.editorState}
+          onChange={this.props.onEditorChange}
           handleKeyCommand={this.handleKeyCommand}
           ref={element => { this.editor = element }}
           placeholder="Write here..."
